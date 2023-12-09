@@ -21,4 +21,5 @@ $ python launcher.py
 
 ```
 After the launcher opens,press the "Launch" button to launch the Web-App!
-### Demo Video - [https://github.com/ArupSankarRoy/Junky/assets/115450599/c38612c9-f945-47ca-852c-c396a2a83157](#Link)
+### Demo Video -
+https://github.com/ArupSankarRoy/Junky/assets/115450599/c38612c9-f945-47ca-852c-c396a2a83157
