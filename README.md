@@ -1,3 +1,6 @@
+
+![Screenshot 2023-12-09 183011](https://github.com/ArupSankarRoy/Junky/assets/115450599/405ca633-0c11-4861-8fa8-d2f1e6ad4b23)
+
 # Junky: AI-Powered Junk Detection System
 
 ## Introduction
