@@ -13,12 +13,12 @@ Sustainability Focus: By promoting responsible waste disposal, Junky contributes
 ## HOW TO RUN :
 To explore Junky and contribute to its development, follow these steps:
 
-const clone = "https://github.com/ArupSankarRoy/Junky.git";
-const enter = "cd Junky";
-const requirements = "pip install -r requirements.txt";
-const launcher = "python launcher.py";
-console.log(clone);
-console.log(enter);
-console.log(requirements);
-console.log(launcher);
+```
+$ https://github.com/ArupSankarRoy/Junky.git
+$ cd Junky
+$ pip install -r requirements.txt
+$ python launcher.py
+
+```
 After the launcher opens,press the "Launch" button to launch the Web-App!
+Demo Video-Link
