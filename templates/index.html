@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Web App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+        body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, rgb(8, 77, 109), rgb(38, 196, 133)); /* RGB Gaming Vibe Gradient */
+      margin: 0;
+      padding: 0;
+      color: #495057;
+    }
+
+    header {
+      background: linear-gradient(to right, #ff5f6d, #ffc371);
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      margin: 20px auto;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      border-radius: 50px;
+      transition: background 0.3s ease, color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:hover {
+      background-color: #ff3d54; 
+      color: #fff;
+    }
+
+    .upload-data {
+      margin-bottom: 20px;
+    }
+
+    #fileinput {
+      position: absolute;
+      top: -500px;
+      display: none;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 15px; 
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%; 
+      object-fit: cover; 
+      display: block;
+      border-radius: 15px;
+    }
+
+    .res-part2 {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 15px; 
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      width: 100px;
+      height: auto;
+    }
+
+    #loading {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999999999;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px; 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .loader {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #363e75;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: block;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .col-md-6 {
+        margin-bottom: 20px;
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.8);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .btn {
+      animation: scaleIn 0.5s ease-in-out; 
+    }
+  </style>
+</head>
+<body>
+  <header class="text-center py-5 mb-4">
+    <div class="container">
+      <h1 class="font-weight-light text-white">Junky-β</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <form class="input-group upload-data row">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-primary col-12" id="uload">Upload</button>
+      </div>
+      <div class="col-md-6">
+        <button id="send" type="button" class="btn btn-success col-12">Predict</button>
+      </div>
+
+      <input type="hidden" class="form-control mr-2" id="url" placeholder="Enter REST Api url..." value="../predict" />
+      <input name="upload" type="file" id="fileinput" style="position:absolute;top:-500px; display: none;" /><br />
+    </form>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card border-0 shadow upload-image">
+          <video autoplay id="video"
+            poster="https://img.freepik.com/free-vector/group-young-people-posing-photo_52683-18824.jpg?size=338&ext=jpg"></video>
+          <img src="" class="" id="photo">
+          <canvas style="display:none;" id="canvas"></canvas>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card border-0 shadow res-part2">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-0">Prediction Results</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading">
+    <div class="loader"></div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <script>
+    var mybtn = document.getElementById('startbtn');
+		var myvideo = document.getElementById('video');
+		var mycanvas = document.getElementById('canvas');
+		var myphoto = document.getElementById('photo');
+		var base_data = "";
+
+		function sendRequest(base64Data) {
+			var type = "json";
+			if (base64Data != "" || base64Data != null) {
+				if (type == "imgtobase") {
+					$(".res-part").html("");
+					$(".res-part").html(base64Data);
+				} else if (type == "basetoimg") {
+					var imageData = $("#imgstring").val();
+					$(".res-part").html("");
+					$(".res-part").append("<img src='data:image/jpeg;base64," + imageData + "' alt='' />");
+				} else {
+					var url = $("#url").val();
+					$("#loading").show();
+					$.ajax({
+						url: url,
+						type: "post",
+						cache: false,
+						async: true,
+						crossDomain: true,
+						headers: {
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*'
+						},
+						data: JSON.stringify({
+							image: base64Data
+						}),
+						success: function (res) {
+							$(".res-part").html("");
+							$(".res-part2").html("");
+							var imageData = res.image;
+							$(".res-part2").append("<img class='resp-img' src='data:image/jpeg;base64," +
+								imageData + "' alt='' />");
+							// $(".res-part").html("<pre>" + JSON.stringify(res[0], undefined, 2) + "</pre>");
+							$("#loading").hide();
+						}
+					});
+				}
+			}
+		}
+
+		$(document).ready(function () {
+			$("#loading").hide();
+
+			$('#send').click(function (evt) {
+				sendRequest(base_data);
+			});
+
+			$('#uload').click(function (evt) {
+				$('#fileinput').focus().trigger('click');
+			});
+			$("#fileinput").change(function () {
+				if (this.files && this.files[0]) {
+					var reader = new FileReader();
+					reader.onload = function (e) {
+						var url = e.target.result;
+						var img = new Image();
+						img.crossOrigin = 'Anonymous';
+						img.onload = function () {
+							var canvas = document.createElement('CANVAS');
+							var ctx = canvas.getContext('2d');
+							canvas.height = this.height;
+							canvas.width = this.width;
+							ctx.drawImage(this, 0, 0);
+							base_data = canvas.toDataURL('image/jpeg', 1.0).replace(
+								/^data:image.+;base64,/, '');
+							canvas = null;
+						};
+						img.src = url;
+						$('#photo').attr('src', url);
+						$('#photo').show();
+						$('#video').hide();
+					}
+					reader.readAsDataURL(this.files[0]);
+				}
+			});
+		});
+  </script>
+</body>
+
+</html>
+
+
