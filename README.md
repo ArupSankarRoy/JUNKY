@@ -13,6 +13,11 @@ Predictive Capabilities: The system is continuously evolving to enhance its pred
 
 Sustainability Focus: By promoting responsible waste disposal, Junky contributes to creating a cleaner and more sustainable environment for communities.
 
+## Here is the output of this beta version
+
+![Screenshot 2023-12-10 132014](https://github.com/ArupSankarRoy/Junky/assets/115450599/00a28b33-a12a-49d3-a615-2ef8c5d35fc1)
+
+
 ## HOW TO RUN :
 To explore Junky and contribute to its development, follow these steps:
 
