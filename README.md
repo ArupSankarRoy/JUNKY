@@ -22,7 +22,7 @@ Sustainability Focus: By promoting responsible waste disposal, Junky contributes
 To explore Junky and contribute to its development, follow these steps:
 
 ```
-$ https://github.com/ArupSankarRoy/Junky.git
+$ git clone https://github.com/ArupSankarRoy/Junky.git
 $ cd Junky
 $ pip install -r requirements.txt
 $ python launcher.py
